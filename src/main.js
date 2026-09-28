@@ -23,11 +23,10 @@ function showError(message){$('error').textContent=message;$('error').hidden=fal
 function clearError(){$('error').hidden=true;}
 function options(){
  $('project').replaceChildren();for(const p of data.projects){$('project').add(new Option(p.title,p.id));}if(data.projects.length>1)$('project').add(new Option('All projects','all'));
- const preferred=data.projects.find(p=>/starchaser/i.test(p.title));if(preferred)$('project').value=preferred.id;
  projectChanged();
 }
 function projectChanged(){
- const p=data.projects.find(p=>p.id===$('project').value);$('title').value=p?(/starchaser/i.test(p.title)?'Starchaser':p.title.slice(0,36)):'All writing';
+ const p=data.projects.find(p=>p.id===$('project').value);$('title').value=p?p.title.slice(0,36):'All writing';
  const years=[...new Set(data.tallies.filter(t=>$('project').value==='all'||t.workId===$('project').value).map(t=>t.date.slice(0,4)))].sort().reverse();$('year').replaceChildren(...years.map(y=>new Option(y,y)));
  const current=String(new Date().getFullYear());if(years.includes(current))$('year').value=current;setCutoff();update(true);
 }
