@@ -1,19 +1,135 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#faf9ff"><meta name="description" content="Turn your TrackBear writing export into a 3D skyline. Built in your browser, one day at a time."><title>Writing Skyline — A little every day</title></head><body>
-<header><a class="brand" href="./"><span class="brand-icon" aria-hidden="true">▂▆▃▇</span> Writing Skyline</a><span class="tag">THE WRITING, MADE VISIBLE</span><a href="#how">How it works ↗</a></header>
-<main><section class="intro"><div><div class="eyebrow">ONE DAY AT A TIME</div><h1>A little every day.<br><em>A skyline of your own.</em></h1><p>Turn the words you’ve written into something you can see,<br class="desktop"> hold, and be proud of.</p></div><div class="intro-note"><span>01 / IMPORT</span><p>Your TrackBear export.<br>Your year in words.</p></div></section>
-<section class="studio" aria-label="Skyline builder"><aside>
-<div class="step-heading"><span>01</span><h2>Your writing</h2></div>
-<label class="drop" id="drop"><span class="upload-icon">↥</span><strong>Choose a TrackBear export</strong><small>Drop a .zip here, or tap to browse</small><input id="file" type="file" accept=".zip,.json,application/zip,application/json" aria-label="Choose TrackBear export"></label>
-<div class="source-line"><span class="dot"></span><span id="source">Exploring sample data</span></div>
-<p class="privacy">All your export data is processed locally in your browser. Nothing from your export is sent to the internet. No analytics or tracking in this app.</p>
-<div id="error" role="alert" hidden></div>
-<div class="field"><label for="project">Project</label><select id="project"></select></div>
-<div class="two"><div class="field"><label for="year">Year</label><select id="year"></select></div><div class="field"><label for="cutoff">Through</label><input type="date" id="cutoff"></div></div>
-<div class="rule"></div><div class="step-heading"><span>02</span><h2>Make it yours</h2></div>
-<div class="field"><label for="title">Title on the base</label><input id="title" maxlength="36" value="Little beginnings"></div>
-<fieldset><legend>Tower height</legend><div class="segmented"><label><input type="radio" name="scale" value="sqrt" checked><span>Square-root</span></label><label><input type="radio" name="scale" value="raw"><span>Raw words</span></label></div></fieldset><p class="helper" id="scale-help">Gives even your smallest writing days a place in the skyline.</p>
-<button id="download" class="primary" disabled>Download STL <span>↓</span></button><div id="file-meta" class="file-meta">Preparing your model…</div>
-<button class="sample-button" id="sample">Return to sample data</button>
-</aside><div class="workspace"><div class="view-heading"><span id="model-heading">Little beginnings</span><span class="sample-badge" id="sample-badge">SAMPLE DATA</span></div><div id="viewport"><div id="loading" role="status">Building your skyline…</div><div class="view-bottom"><span>Drag to rotate · Pinch or scroll to zoom</span><button id="reset">Reset view ↺</button></div></div><div class="view-caption"><span id="period"></span><span>MON → SUN · ONE TOWER PER DAY</span></div><div class="stats"><div><strong id="total">—</strong><span>words logged</span></div><div><strong id="active">—</strong><span>writing days</span></div><div><strong id="streak">—</strong><span>day longest streak</span></div></div><div class="calendar-head"><span>THE DAYS THAT BUILT IT</span><span id="day-detail" aria-live="polite">Select a day to see its words</span></div><div id="calendar" aria-label="Daily writing calendar"></div><div class="calendar-note"><span>Flat days mean no words logged.</span><span id="peak"></span></div></div></section>
-<section class="how" id="how"><div><div class="eyebrow">FROM WORDS TO SOMETHING TANGIBLE</div><h2>Your progress has a shape.</h2></div><ol><li><span>01</span><h3>Export from TrackBear</h3><p>Open your account menu at the top right of TrackBear and choose <strong>Account</strong>. Scroll to the bottom and click <strong>Export your data</strong>. Bring the downloaded ZIP here exactly as it is.</p></li><li><span>02</span><h3>Find your perspective</h3><p>Choose a project and year. Square-root celebrates consistency; raw words puts the big days in proportion.</p></li><li><span>03</span><h3>Make it real</h3><p>Download the same model you see here. Open the STL in your slicer, check the model, and choose your print settings.</p></li></ol><div class="export-guide"><figure><a href="/trackbear-account.png" target="_blank" rel="noopener"><img src="/trackbear-account.png" width="566" height="534" loading="lazy" alt="TrackBear’s top-right account menu, with Account as the first option"></a><figcaption>1. Open the menu at the top right, then choose <strong>Account</strong>.</figcaption></figure><figure><a href="/trackbear-export.png" target="_blank" rel="noopener"><img src="/trackbear-export.png" width="1564" height="644" loading="lazy" alt="Export Data section at the bottom of TrackBear’s Account page, showing the Export your data button"></a><figcaption>2. At the bottom of the Account page, click <strong>Export your data</strong>.</figcaption></figure></div><div class="privacy-note"><h3>Your writing stays with you.</h3><p>Your export is read, processed and turned into an STL entirely on your device. This app does not upload your data, track your activity, or send your writing back to the internet. It keeps your import in memory only; refreshing the page clears it.</p></div></section>
-</main><footer><span>Writing Skyline <span class="footer-dot">·</span> <span class="footer-disclosure">This prototype was created by AI coding agents OpenAI Codex and GitHub Copilot.</span></span><span>Made in your browser. Inspired by gh-skyline. · <a href="https://github.com/lucymhdavies/trackbear-skyline" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;text-underline-offset:3px">Source on GitHub ↗</a></span></footer><script type="module" src="/src/main.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#faf9ff">
+    <meta name="description"
+        content="Turn your TrackBear writing export into a 3D skyline. Built in your browser, one day at a time.">
+    <title>Writing Skyline — A little every day</title>
+</head>
+
+<body>
+    <header><a class="brand" href="./"><span class="brand-icon" aria-hidden="true">▂▆▃▇</span> Writing Skyline</a><span
+            class="tag">THE WRITING, MADE VISIBLE</span><a href="#how">How it works ↗</a></header>
+    <main>
+        <section class="intro">
+            <div>
+                <div class="eyebrow">ONE DAY AT A TIME</div>
+                <h1>A little every day.<br><em>A skyline of your own.</em></h1>
+                <p>Turn the words you’ve written into something you can see,<br class="desktop"> hold, and be proud of.
+                </p>
+            </div>
+            <div class="intro-note"><span>01 / IMPORT</span>
+                <p>Your TrackBear export.<br>Your year in words.</p>
+            </div>
+        </section>
+        <section class="studio" aria-label="Skyline builder">
+            <aside>
+                <div class="step-heading"><span>01</span>
+                    <h2>Your writing</h2>
+                </div>
+                <label class="drop" id="drop"><span class="upload-icon">↥</span><strong>Choose a TrackBear
+                        export</strong><small>Drop a .zip here, or tap to browse</small><input id="file" type="file"
+                        accept=".zip,.json,application/zip,application/json"
+                        aria-label="Choose TrackBear export"></label>
+                <div class="source-line"><span class="dot"></span><span id="source">Exploring sample data</span></div>
+                <p class="privacy">All your export data is processed locally in your browser. Nothing from your export
+                    is sent to the internet. No analytics or tracking in this app.</p>
+                <div id="error" role="alert" hidden></div>
+                <div class="field"><label for="project">Project</label><select id="project"></select></div>
+                <div class="two">
+                    <div class="field"><label for="year">Year</label><select id="year"></select></div>
+                    <div class="field"><label for="cutoff">Through</label><input type="date" id="cutoff"></div>
+                </div>
+                <div class="rule"></div>
+                <div class="step-heading"><span>02</span>
+                    <h2>Make it yours</h2>
+                </div>
+                <div class="field"><label for="title">Title on the base</label><input id="title" maxlength="36"
+                        value="Little beginnings"></div>
+                <fieldset>
+                    <legend>Tower height</legend>
+                    <div class="segmented"><label><input type="radio" name="scale" value="sqrt"
+                                checked><span>Square-root</span></label><label><input type="radio" name="scale"
+                                value="raw"><span>Raw words</span></label></div>
+                </fieldset>
+                <p class="helper" id="scale-help">Gives even your smallest writing days a place in the skyline.</p>
+                <button id="download" class="primary" disabled>Download STL <span>↓</span></button>
+                <div id="file-meta" class="file-meta">Preparing your model…</div>
+                <button class="sample-button" id="sample">Return to sample data</button>
+            </aside>
+            <div class="workspace">
+                <div class="view-heading"><span id="model-heading">Little beginnings</span><span class="sample-badge"
+                        id="sample-badge">SAMPLE DATA</span></div>
+                <div id="viewport">
+                    <div id="loading" role="status">Building your skyline…</div>
+                    <div class="view-bottom"><span>Drag to rotate · Pinch or scroll to zoom</span><button
+                            id="reset">Reset view ↺</button></div>
+                </div>
+                <div class="view-caption"><span id="period"></span><span>MON → SUN · ONE TOWER PER DAY</span></div>
+                <div class="stats">
+                    <div><strong id="total">—</strong><span>words logged</span></div>
+                    <div><strong id="active">—</strong><span>writing days</span></div>
+                    <div><strong id="streak">—</strong><span>day longest streak</span></div>
+                </div>
+                <div class="calendar-head"><span>THE DAYS THAT BUILT IT</span><span id="day-detail"
+                        aria-live="polite">Select a day to see its words</span></div>
+                <div id="calendar" aria-label="Daily writing calendar"></div>
+                <div class="calendar-note"><span>Flat days mean no words logged.</span><span id="peak"></span></div>
+            </div>
+        </section>
+        <section class="how" id="how">
+            <div>
+                <div class="eyebrow">FROM WORDS TO SOMETHING TANGIBLE</div>
+                <h2>Your progress has a shape.</h2>
+            </div>
+            <ol>
+                <li><span>01</span>
+                    <h3>Export from TrackBear</h3>
+                    <p>Open your account menu at the top right of TrackBear and choose <strong>Account</strong>. Scroll
+                        to the bottom and click <strong>Export your data</strong>. Bring the downloaded ZIP here exactly
+                        as it is.</p>
+                </li>
+                <li><span>02</span>
+                    <h3>Find your perspective</h3>
+                    <p>Choose a project and year. Square-root celebrates consistency; raw words puts the big days in
+                        proportion.</p>
+                </li>
+                <li><span>03</span>
+                    <h3>Make it real</h3>
+                    <p>Download the same model you see here. Open the STL in your slicer, check the model, and choose
+                        your print settings.</p>
+                </li>
+            </ol>
+            <div class="export-guide">
+                <figure><a href="/trackbear-account.png" target="_blank" rel="noopener"><img
+                            src="/trackbear-account.png" width="566" height="534" loading="lazy"
+                            alt="TrackBear’s top-right account menu, with Account as the first option"></a>
+                    <figcaption>1. Open the menu at the top right, then choose <strong>Account</strong>.</figcaption>
+                </figure>
+                <figure><a href="/trackbear-export.png" target="_blank" rel="noopener"><img src="/trackbear-export.png"
+                            width="1564" height="644" loading="lazy"
+                            alt="Export Data section at the bottom of TrackBear’s Account page, showing the Export your data button"></a>
+                    <figcaption>2. At the bottom of the Account page, click <strong>Export your data</strong>.
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="privacy-note">
+                <h3>Your writing stays with you.</h3>
+                <p>Your export is read, processed and turned into an STL entirely on your device. This app does not
+                    upload your data, track your activity, or send your writing back to the internet. It keeps your
+                    import in memory only; refreshing the page clears it.</p>
+            </div>
+        </section>
+    </main>
+    <footer><span>Writing Skyline <span class="footer-dot">·</span> <span class="footer-disclosure">This
+                prototype was created by AI coding agents OpenAI Codex and GitHub Copilot.</span></span><span>Made in
+            your browser. Inspired by gh-skyline. · <a href="https://github.com/lucymhdavies/trackbear-skyline"
+                target="_blank" rel="noopener noreferrer"
+                style="text-decoration:underline;text-underline-offset:3px">Source on GitHub ↗</a></span></footer>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
